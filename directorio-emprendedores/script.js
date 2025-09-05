@@ -608,47 +608,50 @@ function renderGallery() {
       );
     }
 
-    thumbs.innerHTML = "";
-    fotosValidas.forEach((src, idx) => {
-      const thumbContainer = document.createElement("div");
-      thumbContainer.className = "thumb-container";
-      thumbContainer.innerHTML = `
-        <img src="${src}" alt="Miniatura ${idx + 1}" ${
-        isMobile ? "" : 'loading="lazy"'
-      } />
-        <span>Sin imagen</span>
-      `;
-      if (idx === gi)
-        thumbContainer.querySelector("img").classList.add("active");
-      const thumbImg = thumbContainer.querySelector("img");
-      thumbImg.addEventListener("click", () => {
-        gi = idx;
-        renderGallery();
-      });
-      if (thumbImg.complete && thumbImg.naturalWidth !== 0) {
-        console.log(`Miniatura ya cargada: ${src}`);
+thumbs.innerHTML = "";
+fotosValidas.forEach((src, idx) => {
+  const thumbContainer = document.createElement("div");
+  thumbContainer.className = "thumb-container";
+  // CAMBIO 1: Eliminar el span del innerHTML inicial
+  thumbContainer.innerHTML = `
+    <img src="${src}" alt="Miniatura ${idx + 1}" ${
+      isMobile ? "" : 'loading="lazy"'
+    } />
+  `;
+  if (idx === gi) thumbContainer.querySelector("img").classList.add("active");
+  const thumbImg = thumbContainer.querySelector("img");
+  thumbImg.addEventListener("click", () => {
+    gi = idx;
+    renderGallery();
+  });
+  if (thumbImg.complete && thumbImg.naturalWidth !== 0) {
+    console.log(`Miniatura ya cargada: ${src}`);
+    thumbContainer.classList.remove("image-placeholder");
+  } else {
+    thumbImg.addEventListener(
+      "load",
+      () => {
+        console.log(`Miniatura cargada: ${src}`);
         thumbContainer.classList.remove("image-placeholder");
-      } else {
-        thumbImg.addEventListener(
-          "load",
-          () => {
-            console.log(`Miniatura cargada: ${src}`);
-            thumbContainer.classList.remove("image-placeholder");
-          },
-          { once: true }
-        );
-        thumbImg.addEventListener(
-          "error",
-          () => {
-            console.error(`Error cargando miniatura: ${src}`);
-            thumbImg.classList.add("error");
-            thumbContainer.classList.add("image-placeholder");
-          },
-          { once: true }
-        );
-      }
-      thumbs.appendChild(thumbContainer);
-    });
+      },
+      { once: true }
+    );
+    // CAMBIO 2: Añadir el span en el manejador de error
+    thumbImg.addEventListener(
+      "error",
+      () => {
+        console.error(`Error cargando miniatura: ${src}`);
+        thumbImg.classList.add("error");
+        thumbContainer.classList.add("image-placeholder"); // Agrega la clase al contenedor
+        const span = document.createElement("span"); // Crea el span
+        span.textContent = "Sin imagen";
+        thumbContainer.appendChild(span); // Añade el span al contenedor
+      },
+      { once: true }
+    );
+  }
+  thumbs.appendChild(thumbContainer);
+});
 
     const hasMultiplePhotos = fotosValidas.length > 1;
     prev.style.display = hasMultiplePhotos ? "block" : "none";
