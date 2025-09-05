@@ -1,7 +1,7 @@
 const directorioData = {
   sheetUrl:
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vRIoDcAP25sxxKlpGXeDLlx7n1TUTGoZHpZsh7AkpgEfa4zdsiKpMu005braW9JUy7Bj3VgHmGaKT4e/pub?gid=1075737631&single=true&output=tsv",
-assetsUrl: "/assets/emprendedores/"};
+assetsUrl: "assets/emprendedores/"};
 
 function shuffleArray(array) {
   const shuffled = [...array];
