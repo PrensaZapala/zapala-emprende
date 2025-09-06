@@ -749,12 +749,13 @@
 }
 
 .g-thumbs {
-  display: flex;
-  gap: 6px;
-  overflow: auto;
-  padding-bottom: 2px;
-  flex: 1;
-  justify-content: center;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+    padding-bottom: 2px;
+    flex: 1;
+    justify-content: center;
 }
 @media (max-width: 480px) {
   .g-thumbs {
