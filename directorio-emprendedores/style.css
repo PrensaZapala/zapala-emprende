@@ -574,19 +574,21 @@
 
 .sheet-header .meta {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row; /* Nuevo: alinea los elementos en una fila */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en nuevas líneas */
+  gap: 8px 16px; /* Ajusta el espacio vertical y horizontal entre los elementos */
   align-items: flex-start;
   text-align: left;
   flex: 1;
 }
 @media (max-width: 480px) {
   .sheet-header .meta {
-    align-items: center;
-    text-align: center;
-    width: 100%;
+    justify-content: center; /* Centra los elementos en móvil para una mejor presentación */
+    gap: 8px 12px;
   }
 }
+
+
 
 .sheet-header .meta .hn {
   font-weight: 800;
@@ -632,9 +634,9 @@
 
 .meta .row {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   align-items: flex-start;
-  width: 100%;
+  /* Elimina el width: 100% si lo tuviera, para que se adapte al contenido */
 }
 @media (max-width: 480px) {
   .meta .row {
@@ -997,4 +999,46 @@ input:checked + .slider:before {
 .toggle-label {
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* ---- ESTILOS PARA LOS ENLACES DE LA FICHA DEL EMPRENDEDOR ---- */
+
+/* Este es el contenedor de todos los enlaces de contacto. */
+#m-links-container {
+  display: flex;
+  flex-wrap: wrap; /* Esta propiedad permite que los elementos salten a la siguiente línea */
+  align-items: center;
+  gap: 8px; /* Agrega espacio entre los enlaces y los separadores */
+}
+
+/* Agrupa el ícono y el texto en un solo elemento, y los alinea. */
+.dir-link-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap; /* Impide que el texto se divida en varias líneas */
+  color: #bfdbfe; /* Color que usan los enlaces en el encabezado */
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Estilo del ícono. */
+.dir-link-icon {
+  display: inline-flex;
+  margin-right: 6px; /* Espacio entre el ícono y el texto */
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Estilo del texto del enlace. */
+.dir-link-text {
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(191, 219, 254, 0.5);
+  word-break: break-all;
+}
+
+/* Estilo del separador "|". */
+.dir-link-separator {
+  color: #c2d500;
+  white-space: nowrap;
 }
