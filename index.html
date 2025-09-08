@@ -62,44 +62,43 @@
   </main>
 
   <div class="modal" id="modal" aria-hidden="true" aria-modal="true" role="dialog">
-    <div class="sheet" role="document">
+  <div class="sheet" role="document">
+    <div class="sheet-header">
       <button class="close" id="close" aria-label="Cerrar ficha">×</button>
-      <div class="sheet-header">
-        <div class="hero">
-          <div class="logo image-placeholder">
-            <img id="m-logo" alt="Logo" class="logo-img" />
-          </div>
-        </div>
-        <div class="meta">
-          <div>
-            <h1 class="hn" id="m-name">Nombre</h1>
-            <div id="m-tag"></div>
-          </div>
-          <div class="row">
-            <div class="label">Dirección</div>
-            <div class="val" id="m-address">–</div>
-          </div>
-          <div class="row">
-            <div class="label">Teléfono</div>
-            <div class="val"><a id="m-phone" href="#">–</a></div>
-          </div>
-          <div id="m-links-container"></div>
+      <div class="hero">
+        <div class="logo image-placeholder">
+          <img id="m-logo" alt="Logo" class="logo-img" />
         </div>
       </div>
-      <div class="sheet-content">
-        <div class="desc" id="m-desc"></div>
-        <div class="gallery">
-          <div class="g-stage" id="g-stage-container">
-            <div class="image-placeholder">
-              <img id="g-stage" alt="Foto del producto" />
-            </div>
-            <div class="swipe-hint">Deslizá para ver más fotos</div>
+      <div class="meta">
+        <div>
+          <h1 class="hn" id="m-name">Nombre</h1>
+          <div id="m-tag"></div>
+        </div>
+        <div class="row">
+          <div class="label">Dirección</div>
+          <div class="val" id="m-address">–</div>
+        </div>
+        <div class="row">
+          <div class="label">Teléfono</div>
+          <div class="val"><a id="m-phone" href="#">–</a></div>
+        </div>
+        <div id="m-links-container"></div>
+      </div>
+    </div>
+    <div class="sheet-content">
+      <div class="desc" id="m-desc"></div>
+      <div class="gallery">
+        <div class="g-stage" id="g-stage-container">
+          <div class="image-placeholder">
+            <img id="g-stage" alt="Foto del producto" />
           </div>
-          <div class="g-nav">
-            <button class="g-btn" id="prev">◀</button>
-            <div class="g-thumbs" id="thumbs"></div>
-            <button class="g-btn" id="next">▶</button>
-          </div>
+          <div class="swipe-hint">Deslizá para ver más fotos</div>
+        </div>
+        <div class="g-nav">
+          <button class="g-btn" id="prev">◀</button>
+          <div class="g-thumbs" id="thumbs"></div>
+          <button class="g-btn" id="next">▶</button>
         </div>
       </div>
     </div>
