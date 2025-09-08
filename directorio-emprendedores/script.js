@@ -1,7 +1,10 @@
+const dirEmprendedoresPath = window.dirEmprendedoresPath || document.body.dataset.emprendedoresPath;
+
 const directorioData = {
+
   sheetUrl:
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vRIoDcAP25sxxKlpGXeDLlx7n1TUTGoZHpZsh7AkpgEfa4zdsiKpMu005braW9JUy7Bj3VgHmGaKT4e/pub?gid=1075737631&single=true&output=tsv",
-  assetsUrl: "assets/emprendedores/",
+  assetsUrl: dirEmprendedoresPath,
 };
 
 function shuffleArray(array) {
@@ -24,12 +27,13 @@ function renderLinks(emp) {
 
   // 1. Enlace de la dirección
   if (emp.direccion && emp.direccion.trim() !== "") {
-    allLinks.push({
-      url: `https://maps.google.com/?q=${encodeURIComponent(emp.direccion)}`,
-      text: emp.direccion,
-      iconClass: 'fa-solid fa-location-dot'
-    });
-  }
+        allLinks.push({
+            // RUTA CORREGIDA: Usar la URL de búsqueda de Google Maps
+            url: `https://www.google.com/maps/search/${encodeURIComponent(emp.direccion)}`,
+            text: emp.direccion,
+            iconClass: 'fa-solid fa-location-dot'
+        });
+    }
 
   // 2. Enlace del teléfono
   if (emp.telefono && emp.telefono.trim() !== "") {
@@ -361,7 +365,6 @@ let fotosValidas = [];
 function openModal(id) {
   try {
     const emp = emprendedoresOriginales.find((e) => e.id === id);
-    console.log("Emp seleccionado:", emp);
     if (!emp) {
       console.warn(`Emprendedor con ID ${id} no encontrado`);
       return;
@@ -375,17 +378,14 @@ function openModal(id) {
     gi = 0;
 
     fotosValidas = [];
-    const isMobile = "ontouchstart" in window || navigator.maxTouchPoints;
-    const checkImages = emp.fotos.map((src, index) => {
+    const checkImages = emp.fotos.map((src) => {
       return new Promise((resolve) => {
         const img = new Image();
         img.onload = () => {
-          console.log(`Imagen de galería cargada: ${src}`);
-          resolve({ src, index, exists: true });
+          resolve({ src, exists: true });
         };
         img.onerror = () => {
-          console.error(`Error cargando imagen de galería: ${src}`);
-          resolve({ src, index, exists: false });
+          resolve({ src, exists: false });
         };
         img.src = src;
       });
@@ -394,6 +394,7 @@ function openModal(id) {
     Promise.all(checkImages).then((results) => {
       fotosValidas = results.filter((r) => r.exists).map((r) => r.src);
       if (fotosValidas.length === 0) {
+        // Si no hay fotos, se usa el logo como fallback
         fotosValidas = [emp.logo];
       }
       renderGallery();
@@ -403,13 +404,11 @@ function openModal(id) {
     mLogo.src = emp.logo;
     mLogo.alt = `Logo de ${emp.nombre}`;
     if (mLogo.complete && mLogo.naturalWidth !== 0) {
-      console.log(`Logo ya cargado: ${emp.logo}`);
       mLogoContainer.classList.remove("image-placeholder");
     } else {
       mLogo.addEventListener(
         "load",
         () => {
-          console.log(`Logo cargado: ${emp.logo}`);
           mLogoContainer.classList.remove("image-placeholder");
         },
         { once: true }
@@ -417,7 +416,6 @@ function openModal(id) {
       mLogo.addEventListener(
         "error",
         () => {
-          console.error(`Error cargando logo en modal: ${emp.logo}`);
           mLogo.classList.add("error");
           mLogoContainer.classList.add("image-placeholder");
         },

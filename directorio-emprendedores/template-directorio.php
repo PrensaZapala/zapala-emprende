@@ -9,106 +9,112 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php the_title(); ?> | <?php bloginfo('name'); ?></title>
+    <title>Directorio de Emprendedores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Condensed:wght@700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/directorio-emprendedores/style.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 
 <div class="dir-emprendedores">
-  <header class="dir-header">
-    <div class="dir-header-content">
-      <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo-ze.png" alt="Logo" class="dir-logo" />
-      <div class="dir-title">Directorio de Emprendedores</div>
-      <div class="dir-actions">
-        <div class="dir-input">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M21 21L15.8 15.8M18 10.5C18 14.09 15.09 17 11.5 17C7.91 17 5 14.09 5 10.5C5 6.91 7.91 4 11.5 4C15.09 4 18 6.91 18 10.5Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <input id="search" type="search" placeholder="Buscar por nombre o rubro..." aria-label="Buscar emprendedores" />
+    <header class="dir-header">
+        <div class="dir-header-content">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo-ze.png" alt="Logo" class="dir-logo" />
+            <div class="dir-title">Directorio de Emprendedores</div>
+            <div class="dir-actions">
+                <div class="dir-input">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M21 21L15.8 15.8M18 10.5C18 14.09 15.09 17 11.5 17C7.91 17 5 14.09 5 10.5C5 6.91 7.91 4 11.5 4C15.09 4 18 6.91 18 10.5Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <input id="search" type="search" placeholder="Buscar por nombre o rubro..." aria-label="Buscar emprendedores" />
+                </div>
+                <div class="dir-count" id="dir-count"></div>
+            </div>
         </div>
-        <div class="dir-count" id="dir-count"></div>
-      </div>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Menú de opciones">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </header>
+        <button class="hamburger" id="hamburger" aria-label="Menú de opciones">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
-  <div class="mobile-menu" id="mobile-menu">
-    <div class="mobile-menu-content">
-      <div class="mobile-menu-header">
-        <div class="mobile-menu-title">Opciones</div>
-        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Cerrar menú">×</button>
-      </div>
-      <div class="dir-input">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M21 21L15.8 15.8M18 10.5C18 14.09 15.09 17 11.5 17C7.91 17 5 14.09 5 10.5C5 6.91 7.91 4 11.5 4C15.09 4 18 6.91 18 10.5Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <input id="search-mobile" type="search" placeholder="Buscar por nombre o rubro..." aria-label="Buscar emprendedores" />
-      </div>
-      <div class="dir-count" id="dir-count-mobile"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-title">Opciones</div>
+                <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Cerrar menú">×</button>
+            </div>
+            <div class="dir-input">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M21 21L15.8 15.8M18 10.5C18 14.09 15.09 17 11.5 17C7.91 17 5 14.09 5 10.5C5 6.91 7.91 4 11.5 4C15.09 4 18 6.91 18 10.5Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input id="search-mobile" type="search" placeholder="Buscar por nombre o rubro..." aria-label="Buscar emprendedores" />
+            </div>
+            <div class="dir-count" id="dir-count-mobile"></div>
+        </div>
     </div>
-  </div>
 
-  <main class="dir-wrap">
-    <div class="dir-toggle" id="sort-toggle">
-      <label class="switch">
-        <input type="checkbox" id="sort-checkbox" />
-        <span class="slider"></span>
-      </label>
-      <span class="toggle-label">Orden Alfabético</span>
-    </div>
-    <div class="dir-grid" id="grid" role="list"></div>
-    <div class="credit">
-      Tip: hacé click en un emprendedor para ver la ficha y la galería.
-    </div>
-  </main>
+    <main class="dir-wrap">
+        <div class="dir-toggle" id="sort-toggle">
+            <label class="switch">
+                <input type="checkbox" id="sort-checkbox" />
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-label">Orden Alfabético</span>
+        </div>
+        <div class="dir-grid" id="grid" role="list"></div>
+        <div class="credit">
+            Tip: hacé click en un emprendedor para ver la ficha y la galería.
+        </div>
+    </main>
 
-  <div class="modal" id="modal" aria-hidden="true" aria-modal="true" role="dialog">
-    <div class="sheet" role="document">
-      <button class="close" id="close" aria-label="Cerrar ficha">×</button>
-      <div class="sheet-header">
-        <div class="hero">
-          <img id="m-logo" alt="Logo" />
+    <div class="modal" id="modal" aria-hidden="true" aria-modal="true" role="dialog">
+        <div class="sheet" role="document">
+            <div class="sheet-header">
+                <button class="close" id="close" aria-label="Cerrar ficha">×</button>
+                <div class="hero">
+                    <div class="logo image-placeholder">
+                        <img id="m-logo" alt="Logo" class="logo-img" />
+                    </div>
+                </div>
+                <div class="meta">
+                    <div>
+                        <h1 class="hn" id="m-name">Nombre</h1>
+                        <div id="m-tag"></div>
+                    </div>
+                    <div class="dir-links-label">CONTACTO:</div>
+                    <div id="m-links-container"></div>
+                </div>
+            </div>
+            <div class="sheet-content">
+                <div class="desc" id="m-desc"></div>
+                <div class="gallery">
+                    <div class="g-stage" id="g-stage-container">
+                        <div class="image-placeholder">
+                            <img id="g-stage" alt="Foto del producto" />
+                        </div>
+                        <div class="swipe-hint">Deslizá para ver más fotos</div>
+                    </div>
+                    <div class="g-nav">
+                        <button class="g-btn" id="prev">◀</button>
+                        <div class="g-thumbs" id="thumbs"></div>
+                        <button class="g-btn" id="next">▶</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="meta">
-          <div>
-            <h1 class="hn" id="m-name">Nombre</h1>
-            <div id="m-tag"></div>
-          </div>
-          <div class="row">
-            <div class="label">Dirección</div>
-            <div class="val" id="m-address">–</div>
-          </div>
-          <div class="row">
-            <div class="label">Teléfono</div>
-            <div class="val"><a id="m-phone" href="#">–</a></div>
-          </div>
-          <div id="m-links-container"></div>
-        </div>
-      </div>
-      <div class="sheet-content">
-        <div class="desc" id="m-desc"></div>
-        <div class="gallery">
-          <div class="g-stage" id="g-stage-container">
-            <img id="g-stage" alt="Foto del producto" />
-            <div class="swipe-hint">Deslizá para ver más fotos</div>
-          </div>
-          <div class="g-nav">
-            <button class="g-btn" id="prev">◀</button>
-            <div class="g-thumbs" id="thumbs"></div>
-            <button class="g-btn" id="next">▶</button>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-<?php wp_footer(); ?>
+
+    <script>
+        // Variable global para la ruta de la carpeta de emprendedores
+        var dirEmprendedoresPath = '<?php echo get_stylesheet_directory_uri(); ?>/assets/emprendedores/';
+    </script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/directorio-emprendedores/script.js"></script>
+
+    <?php wp_footer(); ?>
 </body>
 </html>
