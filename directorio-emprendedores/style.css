@@ -1006,17 +1006,24 @@ input:checked + .slider:before {
 /* Este es el contenedor de todos los enlaces de contacto. */
 #m-links-container {
   display: flex;
-  flex-wrap: wrap; /* Esta propiedad permite que los elementos salten a la siguiente línea */
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px; /* Agrega espacio entre los enlaces y los separadores */
+  gap: 8px; /* ¡Esto es lo que crea el espacio y elimina la necesidad del separador! */
+}
+@media (max-width: 480px) {
+
+
+  #m-links-container {
+    justify-content: center;
+  }
 }
 
-/* Agrupa el ícono y el texto en un solo elemento, y los alinea. */
+/* Cada enlace con su ícono y texto debe ser un solo elemento. */
 .dir-link-item {
   display: inline-flex;
   align-items: center;
-  white-space: nowrap; /* Impide que el texto se divida en varias líneas */
-  color: #bfdbfe; /* Color que usan los enlaces en el encabezado */
+  white-space: nowrap; /* Evita que el texto del enlace se divida */
+  color: #bfdbfe;
   text-decoration: none;
   font-size: 14px;
 }
@@ -1037,8 +1044,3 @@ input:checked + .slider:before {
   word-break: break-all;
 }
 
-/* Estilo del separador "|". */
-.dir-link-separator {
-  color: #c2d500;
-  white-space: nowrap;
-}

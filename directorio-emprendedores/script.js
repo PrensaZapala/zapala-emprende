@@ -69,8 +69,8 @@ function renderLinks(emp) {
     }
   });
 
-  // Renderizar todos los enlaces con el separador
-  allLinks.forEach((linkData, index) => {
+  // Renderizar todos los enlaces sin el separador, el espacio lo dará el CSS
+  allLinks.forEach((linkData) => {
     const linkElement = document.createElement("a");
     linkElement.className = "dir-link-item";
     linkElement.href = linkData.url;
@@ -82,14 +82,6 @@ function renderLinks(emp) {
     `;
 
     mLinksContainer.appendChild(linkElement);
-
-    // Si no es el último enlace, agrega el separador
-    if (index < allLinks.length - 1) {
-      const separator = document.createElement("span");
-      separator.className = "dir-link-separator";
-      separator.textContent = " | ";
-      mLinksContainer.appendChild(separator);
-    }
   });
 }
 
