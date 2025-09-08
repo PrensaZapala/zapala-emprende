@@ -447,26 +447,26 @@
 @media (max-width: 480px) {
   .modal {
     padding: 12px;
-    align-items: flex-start;
+    align-items: center; /* Cambia a "center" para mejor adaptación */
     padding-top: 20px;
   }
 }
 
 .sheet {
   width: min(750px, 100%);
+  height: 100%; /* Permite que el modal ocupe la altura disponible */
   background: var(--card);
   border-radius: 16px;
   border: 1px solid #c2d500;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  max-height: 95vh;
+  /* El scroll se maneja en el contenido */
 }
 @media (max-width: 480px) {
   .sheet {
     border-radius: 12px;
-    max-height: 95vh;
+    height: 95vh; /* O puedes dejarlo así si prefieres la altura fija */
   }
 }
 
@@ -480,13 +480,46 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  overflow-y: auto;
+  overflow-y: auto; /* Permite scroll solo en el header si es muy grande */
 }
 @media (max-width: 480px) {
   .sheet-header {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+  }
+}
+
+.sheet-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+  flex-shrink: 1; /* Permite que se encoja */
+  overflow-y: auto; /* ¡AQUÍ ESTÁ LA MAGIA! Esto genera el scroll interno. */
+  min-height: 0; /* Soluciona desbordamientos en flexbox */
+}
+@media (max-width: 480px) {
+  .sheet-content {
+    padding: 14px;
+    gap: 10px;
+  }
+}
+
+.sheet-content .desc {
+  font-size: 14px;
+  color: #374151;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+  line-height: 1.4;
+}
+@media (max-width: 480px) {
+  .sheet-content .desc {
+    font-size: 13px;
+    padding: 10px;
   }
 }
 
@@ -631,36 +664,6 @@
   text-decoration: none;
   border-bottom: 1px dashed rgba(191, 219, 254, 0.5);
   word-break: break-all;
-}
-
-.sheet-content {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-grow: 1;
-}
-@media (max-width: 480px) {
-  .sheet-content {
-    padding: 14px;
-    gap: 10px;
-  }
-}
-
-.sheet-content .desc {
-  font-size: 14px;
-  color: #374151;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 12px;
-  line-height: 1.4;
-}
-@media (max-width: 480px) {
-  .sheet-content .desc {
-    font-size: 13px;
-    padding: 10px;
-  }
 }
 
 /* Gallery with swipe support */
