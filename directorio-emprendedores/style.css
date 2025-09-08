@@ -574,17 +574,18 @@
 
 .sheet-header .meta {
   display: flex;
-  flex-direction: row; /* Nuevo: alinea los elementos en una fila */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en nuevas líneas */
-  gap: 8px 16px; /* Ajusta el espacio vertical y horizontal entre los elementos */
+  flex-direction: column; /* ¡CAMBIO CLAVE! Esto apila los elementos verticalmente. */
+  gap: 16px; /* Ajusta el espacio vertical entre el nombre y los enlaces. */
   align-items: flex-start;
   text-align: left;
   flex: 1;
 }
+
 @media (max-width: 480px) {
   .sheet-header .meta {
-    justify-content: center; /* Centra los elementos en móvil para una mejor presentación */
-    gap: 8px 12px;
+    justify-content: center; /* Centra los elementos verticalmente en móvil */
+    align-items: center; /* Centra los elementos horizontalmente en móvil */
+    text-align: center;
   }
 }
 
@@ -716,7 +717,7 @@
 
 .g-stage {
   position: relative;
-  aspect-ratio: 16/10;
+  aspect-ratio: 16/9;
   background: #0f172a;
   border-radius: 8px;
   display: flex;
@@ -725,6 +726,8 @@
   overflow: hidden;
   touch-action: pan-y pinch-zoom;
   user-select: none;
+  min-height: 200px;
+  object-fit: cover;
 }
 @media (max-width: 768px) {
   .g-stage {
