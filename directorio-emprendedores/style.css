@@ -1047,3 +1047,16 @@ input:checked + .slider:before {
   word-break: break-all;
 }
 
+.dir-links-label {
+  font-family: "Montserrat Condensed", sans-serif;
+  font-weight: 400; /* Más grueso, como el nombre del emprendedor */
+  font-size: 14px; /* Mantén el tamaño de texto estándar de los enlaces */
+  color: #a2bae2; /* El color de "accent" o "border" que usabas en el header */
+  margin-top: 10px; /* Espacio superior para separarlo del texto anterior */
+}
+
+@media (max-width: 480px) {
+  .dir-links-label {
+    text-align: center;
+  }
+}
