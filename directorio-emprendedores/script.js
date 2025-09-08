@@ -1,18 +1,15 @@
 const directorioData = {
   sheetUrl:
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vRIoDcAP25sxxKlpGXeDLlx7n1TUTGoZHpZsh7AkpgEfa4zdsiKpMu005braW9JUy7Bj3VgHmGaKT4e/pub?gid=1075737631&single=true&output=tsv",
-  assetsUrl: "", // Inicializado como vacío, se asignará a continuación
+  assetsUrl: "",
 };
 
-// Si la variable global 'dirEmprendedoresPath' existe (la crea WordPress), úsala.
-// De lo contrario, obtén la ruta del atributo data-* del body.
+// Asigna la URL de los assets según el entorno (WordPress o HTML estático)
 if (typeof window.dirEmprendedoresPath !== 'undefined') {
-    directorioData.assetsUrl = window.dirEmprendedoresPath;
+  directorioData.assetsUrl = window.dirEmprendedoresPath;
 } else {
-    directorioData.assetsUrl = document.body.dataset.emprendedoresPath;
+  directorioData.assetsUrl = document.body.dataset.emprendedoresPath;
 }
-
-// ... El resto de tu script
 
 function shuffleArray(array) {
   const shuffled = [...array];
@@ -32,17 +29,16 @@ function renderLinks(emp) {
 
   const allLinks = [];
 
-  // 1. Enlace de la dirección
+  // Enlace de dirección
   if (emp.direccion && emp.direccion.trim() !== "") {
-        allLinks.push({
-            // RUTA CORREGIDA: Usar la URL de búsqueda de Google Maps
-            url: `https://www.google.com/maps/search/${encodeURIComponent(emp.direccion)}`,
-            text: emp.direccion,
-            iconClass: 'fa-solid fa-location-dot'
-        });
-    }
+    allLinks.push({
+      url: `https://www.google.com/maps/search/${encodeURIComponent(emp.direccion)}`,
+      text: emp.direccion,
+      iconClass: 'fa-solid fa-location-dot'
+    });
+  }
 
-  // 2. Enlace del teléfono
+  // Enlace de teléfono
   if (emp.telefono && emp.telefono.trim() !== "") {
     allLinks.push({
       url: `tel:${emp.telefono.replace(/[^+\d]/g, "")}`,
@@ -51,24 +47,20 @@ function renderLinks(emp) {
     });
   }
 
-  // 3. Enlaces de redes sociales
-  const socialSources = [
-    {
-      url: emp.web,
-      text: emp.web_display || emp.web,
-      iconClass: 'fa-solid fa-link'
-    },
-    {
-      url: emp.facebook,
-      text: emp.facebook_display || emp.facebook,
-      iconClass: 'fa-brands fa-facebook'
-    },
-    {
-      url: emp.instagram,
-      text: emp.instagram_display || emp.instagram,
-      iconClass: 'fa-brands fa-instagram'
-    },
-  ];
+  // Enlaces de redes sociales
+  const socialSources = [{
+    url: emp.web,
+    text: emp.web_display || emp.web,
+    iconClass: 'fa-solid fa-link'
+  }, {
+    url: emp.facebook,
+    text: emp.facebook_display || emp.facebook,
+    iconClass: 'fa-brands fa-facebook'
+  }, {
+    url: emp.instagram,
+    text: emp.instagram_display || emp.instagram,
+    iconClass: 'fa-brands fa-instagram'
+  }, ];
 
   socialSources.forEach((link) => {
     if (link.url && link.url.trim() !== "") {
@@ -80,7 +72,6 @@ function renderLinks(emp) {
     }
   });
 
-  // Renderizar todos los enlaces sin el separador, el espacio lo dará el CSS
   allLinks.forEach((linkData) => {
     const linkElement = document.createElement("a");
     linkElement.className = "dir-link-item";
@@ -178,7 +169,6 @@ fetch(directorioData.sheetUrl)
   .then((tsvData) => {
     const lines = tsvData.trim().split("\n");
     const headers = lines[0].split("\t").map((h) => h.toLowerCase().trim());
-    console.log("Headers:", headers);
 
     emprendedoresOriginales = lines
       .slice(1)
@@ -189,9 +179,6 @@ fetch(directorioData.sheetUrl)
           row[header] = (values[index] || "").trim();
         });
 
-        console.log("Row data:", row);
-
-        // Validar que carpeta exista y no esté vacía
         const carpeta =
           row.carpeta && row.carpeta.trim() !== "" ? row.carpeta : "default";
         const slug = generateSlug(row.emprendimiento || "");
@@ -210,17 +197,14 @@ fetch(directorioData.sheetUrl)
           web: row["web-mail"] || "",
           web_display: row.web_display || "",
           logo: `${directorioData.assetsUrl}${carpeta}/logo.png`,
-          fotos: Array.from(
-            { length: 8 },
-            (_, i) => `${directorioData.assetsUrl}${carpeta}/${i + 1}.jpg`
-          ),
+          fotos: Array.from({
+            length: 8
+          }, (_, i) => `${directorioData.assetsUrl}${carpeta}/${i + 1}.jpg`),
         };
-        console.log("Parsed emp:", emp);
         return emp;
       })
       .filter((emp) => emp.nombre.trim() !== "");
 
-    console.log("Total emprendedores:", emprendedoresOriginales.length);
     generateNewRandomOrder();
     renderGrid(getOrderedEntrepreneurs());
 
@@ -265,7 +249,7 @@ function renderGridFiltered() {
 
   let filtered = orderedItems.filter(
     (emp) =>
-      normalize(emp.nombre).includes(q) || normalize(emp.rubro).includes(q)
+    normalize(emp.nombre).includes(q) || normalize(emp.rubro).includes(q)
   );
 
   renderGrid(filtered);
@@ -301,34 +285,32 @@ function renderGrid(items) {
       grid.appendChild(a);
     });
 
-    // Manejo de imágenes en las tarjetas
+    // Maneja placeholders para imágenes que no se cargan
     document.querySelectorAll(".logo-img").forEach((img) => {
-      // Verificar si la imagen ya está cargada (puede estar en caché)
       if (img.complete && img.naturalWidth !== 0) {
-        console.log(`Imagen ya cargada: ${img.src}`);
         img.parentElement.classList.remove("image-placeholder");
       } else {
         img.addEventListener(
           "error",
           () => {
-            console.error(`Error cargando imagen: ${img.src}`);
             img.classList.add("error");
             img.parentElement.classList.add("image-placeholder");
-          },
-          { once: true }
+          }, {
+            once: true
+          }
         );
         img.addEventListener(
           "error",
           () => {
-            console.error(`Error cargando imagen: ${img.src}`);
             img.classList.add("error");
             img.parentElement.classList.add("image-placeholder");
 
             const span = document.createElement("span");
             span.textContent = "Sin imagen";
             img.parentElement.appendChild(span);
-          },
-          { once: true }
+          }, {
+            once: true
+          }
         );
       }
     });
@@ -373,7 +355,6 @@ function openModal(id) {
   try {
     const emp = emprendedoresOriginales.find((e) => e.id === id);
     if (!emp) {
-      console.warn(`Emprendedor con ID ${id} no encontrado`);
       return;
     }
 
@@ -389,10 +370,16 @@ function openModal(id) {
       return new Promise((resolve) => {
         const img = new Image();
         img.onload = () => {
-          resolve({ src, exists: true });
+          resolve({
+            src,
+            exists: true
+          });
         };
         img.onerror = () => {
-          resolve({ src, exists: false });
+          resolve({
+            src,
+            exists: false
+          });
         };
         img.src = src;
       });
@@ -401,7 +388,6 @@ function openModal(id) {
     Promise.all(checkImages).then((results) => {
       fotosValidas = results.filter((r) => r.exists).map((r) => r.src);
       if (fotosValidas.length === 0) {
-        // Si no hay fotos, se usa el logo como fallback
         fotosValidas = [emp.logo];
       }
       renderGallery();
@@ -417,16 +403,18 @@ function openModal(id) {
         "load",
         () => {
           mLogoContainer.classList.remove("image-placeholder");
-        },
-        { once: true }
+        }, {
+          once: true
+        }
       );
       mLogo.addEventListener(
         "error",
         () => {
           mLogo.classList.add("error");
           mLogoContainer.classList.add("image-placeholder");
-        },
-        { once: true }
+        }, {
+          once: true
+        }
       );
     }
 
@@ -448,6 +436,7 @@ function openModal(id) {
 
     history.pushState(null, null, `#${emp.id}`);
 
+    // Maneja gestos táctiles para la galería
     gStageContainer.addEventListener("touchstart", handleTouchStart, {
       passive: false,
     });
@@ -558,25 +547,24 @@ function renderGallery() {
     gStage.src = fotosValidas[gi];
     gStage.alt = `Foto ${gi + 1} de ${fotosValidas.length} de ${active.nombre}`;
     if (gStage.complete && gStage.naturalWidth !== 0) {
-      console.log(`Imagen de galería ya cargada: ${gStage.src}`);
       gStage.parentElement.classList.remove("image-placeholder");
     } else {
       gStage.addEventListener(
         "load",
         () => {
-          console.log(`Imagen de galería cargada: ${gStage.src}`);
           gStage.parentElement.classList.remove("image-placeholder");
-        },
-        { once: true }
+        }, {
+          once: true
+        }
       );
       gStage.addEventListener(
         "error",
         () => {
-          console.error(`Error cargando imagen de galería: ${gStage.src}`);
           gStage.classList.add("error");
           gStage.parentElement.classList.add("image-placeholder");
-        },
-        { once: true }
+        }, {
+          once: true
+        }
       );
     }
 
@@ -584,7 +572,6 @@ function renderGallery() {
     fotosValidas.forEach((src, idx) => {
       const thumbContainer = document.createElement("div");
       thumbContainer.className = "thumb-container";
-      // CAMBIO 1: Eliminar el span del innerHTML inicial
       thumbContainer.innerHTML = `
         <img src="${src}" alt="Miniatura ${idx + 1}" ${
         isMobile ? "" : 'loading="lazy"'
@@ -598,29 +585,27 @@ function renderGallery() {
         renderGallery();
       });
       if (thumbImg.complete && thumbImg.naturalWidth !== 0) {
-        console.log(`Miniatura ya cargada: ${src}`);
         thumbContainer.classList.remove("image-placeholder");
       } else {
         thumbImg.addEventListener(
           "load",
           () => {
-            console.log(`Miniatura cargada: ${src}`);
             thumbContainer.classList.remove("image-placeholder");
-          },
-          { once: true }
+          }, {
+            once: true
+          }
         );
-        // CAMBIO 2: Añadir el span en el manejador de error
         thumbImg.addEventListener(
           "error",
           () => {
-            console.error(`Error cargando miniatura: ${src}`);
             thumbImg.classList.add("error");
-            thumbContainer.classList.add("image-placeholder"); // Agrega la clase al contenedor
-            const span = document.createElement("span"); // Crea el span
+            thumbContainer.classList.add("image-placeholder");
+            const span = document.createElement("span");
             span.textContent = "Sin imagen";
-            thumbContainer.appendChild(span); // Añade el span al contenedor
-          },
-          { once: true }
+            thumbContainer.appendChild(span);
+          }, {
+            once: true
+          }
         );
       }
       thumbs.appendChild(thumbContainer);
@@ -699,8 +684,8 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// Detecta si es un dispositivo táctil y añade clases para estilos
 if ("ontouchstart" in window || navigator.maxTouchPoints) {
-  console.log("Dispositivo táctil detectado");
   document.body.classList.add("touch-device");
 
   const addTouchFeedback = () => {
@@ -732,5 +717,7 @@ if ("ontouchstart" in window || navigator.maxTouchPoints) {
     addTouchFeedback();
   });
 
-  observer.observe(grid, { childList: true });
+  observer.observe(grid, {
+    childList: true
+  });
 }

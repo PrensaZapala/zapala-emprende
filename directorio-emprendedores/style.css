@@ -27,7 +27,7 @@
   }
 }
 
-/* ---- WRAP ---- */
+/* --- Estructura principal --- */
 .dir-wrap {
   max-width: 1100px;
   margin: 0 auto;
@@ -39,7 +39,7 @@
   }
 }
 
-/* ---- HEADER ---- */
+/* --- Header y menú móvil --- */
 .dir-header {
   display: grid;
   grid-template-columns: 1fr minmax(0, 1100px) 1fr;
@@ -52,7 +52,6 @@
   z-index: 1000;
 }
 
-/* Contenido real del header */
 .dir-header-content {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -62,14 +61,12 @@
   padding: 0 16px;
 }
 
-/* Logo */
 .dir-logo {
   height: 80px;
   width: auto;
   flex-shrink: 0;
 }
 
-/* Título */
 .dir-title {
   text-align: center;
   font-size: clamp(20px, 4vw, 25px);
@@ -78,14 +75,12 @@
   line-height: 1.1;
 }
 
-/* Acciones: búsqueda y botones */
 .dir-actions {
   display: grid;
   align-items: center;
   gap: 12px;
 }
 
-/* ---- HAMBURGER MENU (solo móvil) ---- */
 .hamburger {
   display: none;
   background: none;
@@ -123,7 +118,6 @@
   transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Mobile menu */
 .mobile-menu {
   position: fixed;
   top: 0;
@@ -183,7 +177,6 @@
   color: var(--text);
 }
 
-/* Ajustes para móviles */
 @media (max-width: 640px) {
   .dir-header {
     justify-content: space-between;
@@ -207,7 +200,7 @@
   }
 }
 
-/* ---- INPUT ---- */
+/* --- Búsqueda y contador --- */
 .dir-input {
   position: relative;
   display: flex;
@@ -241,14 +234,13 @@
   box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* ---- CONTADOR ---- */
 .dir-count {
   font-size: 13px;
   color: var(--muted);
   text-align: center;
 }
 
-/* ---- GRID ---- */
+/* --- Grilla de tarjetas --- */
 .dir-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -268,31 +260,28 @@
   }
 }
 
-/* Feedback táctil mejorado */
 .touch-device .card.touch-active {
   transform: scale(0.98);
   transition: transform 0.2s ease;
 }
 
-/* Mantener el hover normal en dispositivos que lo soportan */
 @media (hover: hover) {
   .card:hover {
     transform: scale(1.03);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   }
-  
+
   .card.touch-active:hover {
     transform: scale(1.03);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   }
 }
 
-/* Solo para dispositivos táctiles sin hover */
 @media (hover: none) {
   .card:hover {
     transform: none;
   }
-  
+
   .card:focus {
     transform: scale(1.03);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
@@ -300,7 +289,6 @@
   }
 }
 
-/* ---- CARD ---- */
 .card {
   background: var(--card);
   border: 1px solid #c2d500;
@@ -337,7 +325,7 @@
   outline: none;
 }
 
-/* ---- LOGO CARD ---- */
+/* --- Estilos de logos en tarjetas --- */
 .logo {
   display: flex;
   align-items: center;
@@ -380,7 +368,7 @@
   padding: 0 5px;
 }
 .logo.image-placeholder img.error + span {
-  display: flex; /* o block, dependiendo del layout */
+  display: flex;
 }
 @media (max-width: 480px) {
   .logo img {
@@ -392,7 +380,7 @@
   }
 }
 
-/* ---- NOMBRES Y TEXTOS ---- */
+/* --- Nombres y rubros en tarjetas --- */
 .name {
   font-weight: 700;
   font-size: 14px;
@@ -429,7 +417,7 @@
   }
 }
 
-/* Modal y sheet */
+/* --- Modal del emprendedor --- */
 .modal {
   position: fixed;
   inset: 0;
@@ -574,8 +562,8 @@
 
 .sheet-header .meta {
   display: flex;
-  flex-direction: column; /* ¡CAMBIO CLAVE! Esto apila los elementos verticalmente. */
-  gap: 16px; /* Ajusta el espacio vertical entre el nombre y los enlaces. */
+  flex-direction: column;
+  gap: 16px;
   align-items: flex-start;
   text-align: left;
   flex: 1;
@@ -583,13 +571,11 @@
 
 @media (max-width: 480px) {
   .sheet-header .meta {
-    justify-content: center; /* Centra los elementos verticalmente en móvil */
-    align-items: center; /* Centra los elementos horizontalmente en móvil */
+    justify-content: center;
+    align-items: center;
     text-align: center;
   }
 }
-
-
 
 .sheet-header .meta .hn {
   font-weight: 800;
@@ -637,7 +623,6 @@
   display: flex;
   gap: 5px;
   align-items: flex-start;
-  /* Elimina el width: 100% si lo tuviera, para que se adapte al contenido */
 }
 @media (max-width: 480px) {
   .meta .row {
@@ -694,13 +679,12 @@
 }
 
 .link-text {
-  color: #bfdbfe;
   text-decoration: none;
   border-bottom: 1px dashed rgba(191, 219, 254, 0.5);
   word-break: break-all;
 }
 
-/* Gallery with swipe support */
+/* --- Galería de fotos del modal --- */
 .gallery {
   position: relative;
   background: #0c1931;
@@ -788,13 +772,13 @@
 }
 
 .g-thumbs {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto; /* Habilita el desplazamiento horizontal */
-    overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
-    padding-bottom: 2px;
-    flex: 1;
-    justify-content: center;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+  flex: 1;
+  justify-content: center;
 }
 @media (max-width: 480px) {
   .g-thumbs {
@@ -879,8 +863,6 @@
   transform: scale(0.95);
 }
 
-
-/* Swipe indicators */
 .swipe-hint {
   position: absolute;
   bottom: 8px;
@@ -901,7 +883,7 @@
   }
 }
 
-/* Footer */
+/* --- Varios --- */
 .credit {
   text-align: center;
   margin-top: 16px;
@@ -916,13 +898,11 @@
   }
 }
 
-/* Loading state */
 .loading {
   opacity: 0.5;
   pointer-events: none;
 }
 
-/* Error handling */
 .error-message {
   text-align: center;
   padding: 20px;
@@ -930,7 +910,7 @@
   font-size: 14px;
 }
 
-/* Accesibilidad mejorada */
+/* Accesibilidad */
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -942,7 +922,7 @@
   }
 }
 
-/* ---- TOGGLE ---- */
+/* --- Controles de ordenación --- */
 .dir-toggle {
   display: flex;
   align-items: center;
@@ -1004,43 +984,36 @@ input:checked + .slider:before {
   color: var(--muted);
 }
 
-/* ---- ESTILOS PARA LOS ENLACES DE LA FICHA DEL EMPRENDEDOR ---- */
-
-/* Este es el contenedor de todos los enlaces de contacto. */
+/* --- Enlaces de la ficha del emprendedor --- */
 #m-links-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px; /* ¡Esto es lo que crea el espacio y elimina la necesidad del separador! */
+  gap: 8px;
 }
 @media (max-width: 480px) {
-
-
   #m-links-container {
     justify-content: center;
   }
 }
 
-/* Cada enlace con su ícono y texto debe ser un solo elemento. */
 .dir-link-item {
   display: inline-flex;
   align-items: center;
-  white-space: nowrap; /* Evita que el texto del enlace se divida */
+  white-space: nowrap;
   color: #bfdbfe;
   text-decoration: none;
   font-size: 14px;
 }
 
-/* Estilo del ícono. */
 .dir-link-icon {
   display: inline-flex;
-  margin-right: 6px; /* Espacio entre el ícono y el texto */
+  margin-right: 6px;
   font-size: 16px;
   width: 16px;
   height: 16px;
 }
 
-/* Estilo del texto del enlace. */
 .dir-link-text {
   text-decoration: none;
   border-bottom: 1px dashed rgba(191, 219, 254, 0.5);
@@ -1049,10 +1022,10 @@ input:checked + .slider:before {
 
 .dir-links-label {
   font-family: "Montserrat Condensed", sans-serif;
-  font-weight: 400; /* Más grueso, como el nombre del emprendedor */
-  font-size: 14px; /* Mantén el tamaño de texto estándar de los enlaces */
-  color: #a2bae2; /* El color de "accent" o "border" que usabas en el header */
-  margin-top: 10px; /* Espacio superior para separarlo del texto anterior */
+  font-weight: 400;
+  font-size: 14px;
+  color: #a2bae2;
+  margin-top: 10px;
 }
 
 @media (max-width: 480px) {
