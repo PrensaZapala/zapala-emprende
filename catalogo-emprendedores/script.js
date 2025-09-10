@@ -5,9 +5,10 @@ const directorioData = {
 };
 
 // Asigna la URL de los assets según el entorno (WordPress o HTML estático)
-if (typeof window.dirEmprendedoresPath !== 'undefined') {
+if (typeof window.dirEmprendedoresPath !== "undefined") {
   directorioData.assetsUrl = window.dirEmprendedoresPath;
 } else {
+  // Aquí usamos la nueva ruta para el directorio de emprendedores
   directorioData.assetsUrl = document.body.dataset.emprendedoresPath;
 }
 
@@ -32,9 +33,11 @@ function renderLinks(emp) {
   // Enlace de dirección
   if (emp.direccion && emp.direccion.trim() !== "") {
     allLinks.push({
-      url: `https://www.google.com/maps/search/${encodeURIComponent(emp.direccion)}`,
+      url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        emp.direccion
+      )}`,
       text: emp.direccion,
-      iconClass: 'fa-solid fa-location-dot'
+      iconClass: "fa-solid fa-location-dot",
     });
   }
 
@@ -43,31 +46,35 @@ function renderLinks(emp) {
     allLinks.push({
       url: `tel:${emp.telefono.replace(/[^+\d]/g, "")}`,
       text: emp.telefono,
-      iconClass: 'fa-solid fa-phone'
+      iconClass: "fa-solid fa-phone",
     });
   }
 
   // Enlaces de redes sociales
-  const socialSources = [{
-    url: emp.web,
-    text: emp.web_display || emp.web,
-    iconClass: 'fa-solid fa-link'
-  }, {
-    url: emp.facebook,
-    text: emp.facebook_display || emp.facebook,
-    iconClass: 'fa-brands fa-facebook'
-  }, {
-    url: emp.instagram,
-    text: emp.instagram_display || emp.instagram,
-    iconClass: 'fa-brands fa-instagram'
-  }, ];
+  const socialSources = [
+    {
+      url: emp.web,
+      text: emp.web_display || emp.web,
+      iconClass: "fa-solid fa-link",
+    },
+    {
+      url: emp.facebook,
+      text: emp.facebook_display || emp.facebook,
+      iconClass: "fa-brands fa-facebook",
+    },
+    {
+      url: emp.instagram,
+      text: emp.instagram_display || emp.instagram,
+      iconClass: "fa-brands fa-instagram",
+    },
+  ];
 
   socialSources.forEach((link) => {
     if (link.url && link.url.trim() !== "") {
       allLinks.push({
         url: link.url.startsWith("http") ? link.url : "https://" + link.url,
         text: link.text,
-        iconClass: link.iconClass
+        iconClass: link.iconClass,
       });
     }
   });
@@ -197,9 +204,12 @@ fetch(directorioData.sheetUrl)
           web: row["web-mail"] || "",
           web_display: row.web_display || "",
           logo: `${directorioData.assetsUrl}${carpeta}/logo.png`,
-          fotos: Array.from({
-            length: 8
-          }, (_, i) => `${directorioData.assetsUrl}${carpeta}/${i + 1}.jpg`),
+          fotos: Array.from(
+            {
+              length: 8,
+            },
+            (_, i) => `${directorioData.assetsUrl}${carpeta}/${i + 1}.jpg`
+          ),
         };
         return emp;
       })
@@ -249,7 +259,7 @@ function renderGridFiltered() {
 
   let filtered = orderedItems.filter(
     (emp) =>
-    normalize(emp.nombre).includes(q) || normalize(emp.rubro).includes(q)
+      normalize(emp.nombre).includes(q) || normalize(emp.rubro).includes(q)
   );
 
   renderGrid(filtered);
@@ -295,8 +305,9 @@ function renderGrid(items) {
           () => {
             img.classList.add("error");
             img.parentElement.classList.add("image-placeholder");
-          }, {
-            once: true
+          },
+          {
+            once: true,
           }
         );
         img.addEventListener(
@@ -308,8 +319,9 @@ function renderGrid(items) {
             const span = document.createElement("span");
             span.textContent = "Sin imagen";
             img.parentElement.appendChild(span);
-          }, {
-            once: true
+          },
+          {
+            once: true,
           }
         );
       }
@@ -372,13 +384,13 @@ function openModal(id) {
         img.onload = () => {
           resolve({
             src,
-            exists: true
+            exists: true,
           });
         };
         img.onerror = () => {
           resolve({
             src,
-            exists: false
+            exists: false,
           });
         };
         img.src = src;
@@ -403,8 +415,9 @@ function openModal(id) {
         "load",
         () => {
           mLogoContainer.classList.remove("image-placeholder");
-        }, {
-          once: true
+        },
+        {
+          once: true,
         }
       );
       mLogo.addEventListener(
@@ -412,8 +425,9 @@ function openModal(id) {
         () => {
           mLogo.classList.add("error");
           mLogoContainer.classList.add("image-placeholder");
-        }, {
-          once: true
+        },
+        {
+          once: true,
         }
       );
     }
@@ -553,8 +567,9 @@ function renderGallery() {
         "load",
         () => {
           gStage.parentElement.classList.remove("image-placeholder");
-        }, {
-          once: true
+        },
+        {
+          once: true,
         }
       );
       gStage.addEventListener(
@@ -562,8 +577,9 @@ function renderGallery() {
         () => {
           gStage.classList.add("error");
           gStage.parentElement.classList.add("image-placeholder");
-        }, {
-          once: true
+        },
+        {
+          once: true,
         }
       );
     }
@@ -577,8 +593,7 @@ function renderGallery() {
         isMobile ? "" : 'loading="lazy"'
       } />
       `;
-      if (idx === gi)
-        thumbContainer.querySelector("img").classList.add("active");
+      if (idx === gi) thumbContainer.querySelector("img").classList.add("active");
       const thumbImg = thumbContainer.querySelector("img");
       thumbImg.addEventListener("click", () => {
         gi = idx;
@@ -591,8 +606,9 @@ function renderGallery() {
           "load",
           () => {
             thumbContainer.classList.remove("image-placeholder");
-          }, {
-            once: true
+          },
+          {
+            once: true,
           }
         );
         thumbImg.addEventListener(
@@ -603,8 +619,9 @@ function renderGallery() {
             const span = document.createElement("span");
             span.textContent = "Sin imagen";
             thumbContainer.appendChild(span);
-          }, {
-            once: true
+          },
+          {
+            once: true,
           }
         );
       }
@@ -718,6 +735,6 @@ if ("ontouchstart" in window || navigator.maxTouchPoints) {
   });
 
   observer.observe(grid, {
-    childList: true
+    childList: true,
   });
 }

@@ -14,16 +14,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Condensed:wght@700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/directorio-emprendedores/style.css">
+    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/catalogo-emprendedores/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 
-<div class="dir-emprendedores">
+<div class="catalogo-emprendedores">
     <header class="dir-header">
         <div class="dir-header-content">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo-ze.png" alt="Logo" class="dir-logo" />
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/zapala-emprende/logo-ze.png" alt="Logo" class="dir-logo" />
             <div class="dir-title">Catálogo Online de Emprendedores</div>
             <div class="dir-actions">
                 <div class="dir-input">
@@ -111,9 +111,9 @@
 
     <script>
         // Variable global para la ruta de la carpeta de emprendedores
-        var dirEmprendedoresPath = '<?php echo get_stylesheet_directory_uri(); ?>/assets/emprendedores/';
+        var dirEmprendedoresPath = '<?php echo get_stylesheet_directory_uri(); ?>/assets/zapala-emprende/';
     </script>
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/directorio-emprendedores/script.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/catalogo-emprendedores/script.js"></script>
 
     <?php wp_footer(); ?>
 </body>
