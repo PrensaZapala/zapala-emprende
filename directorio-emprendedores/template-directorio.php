@@ -9,7 +9,7 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directorio de Emprendedores</title>
+    <title>Catálogo Online de Emprendedores</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Condensed:wght@700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
     <header class="dir-header">
         <div class="dir-header-content">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo-ze.png" alt="Logo" class="dir-logo" />
-            <div class="dir-title">Directorio de Emprendedores</div>
+            <div class="dir-title">Catálogo Online de Emprendedores</div>
             <div class="dir-actions">
                 <div class="dir-input">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
