@@ -563,7 +563,7 @@
 .sheet-header .meta {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 5px;
   align-items: flex-start;
   text-align: left;
   flex: 1;
