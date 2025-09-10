@@ -113,7 +113,7 @@
         // Variable global para la ruta de la carpeta de emprendedores
         var dirEmprendedoresPath = '<?php echo get_stylesheet_directory_uri(); ?>/assets/zapala-emprende/';
     </script>
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/catalogo-emprendedores/script.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/catalogo-emprendedores/script.js" defer data-emprendedores-path="<?php echo get_stylesheet_directory_uri(); ?>/catalogo-emprendedores/"></script>
 
     <?php wp_footer(); ?>
 </body>
